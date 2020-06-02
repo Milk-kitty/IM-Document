@@ -1,0 +1,1634 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+
+paths:
+  /devtool/token:
+    get:
+      summary: "Get the token"
+      parameters:
+        - $ref: '#/components/parameters/aud'
+        - $ref: '#/components/parameters/act'
+        - $ref: '#/components/parameters/members'
+
+      responses:
+        200:
+          description: Successful Return Example
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get_token'
+
+  /im/conversations:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Single chat group chat API interface"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name_1'
+        - $ref: '#/components/parameters/conv_type'
+        - $ref: '#/components/parameters/conv_expansion'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Single_chat_group_chat_API_interface'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/Single_chat_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/Single_chat_negative'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Single_chat_Request_Example'
+            examples:
+              Single_chat_Request_Example:
+                $ref: '#/components/examples/Single_chat_Request_Example'
+
+    put:
+      security:
+        - bearerAuth: []
+      summary: "Update conversation"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/conv_expansion'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/update_conversation'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_conversation_request_example'
+            examples:
+              update_conversation_request_example:
+                $ref: '#/components/examples/update_conversation_request_example'
+
+    delete:
+      security:
+        - bearerAuth: []
+      summary: "Delete conversation"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/is_quit'
+
+      responses:
+        200:
+          description: Successful return example
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delete_conversation'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/delete_conversation_request_example'
+            examples:
+              delete_conversation_request_example:
+                $ref: '#/components/examples/delete_conversation_request_example'
+
+    get:
+      security:
+        - bearerAuth: []
+      summary: "Get conversation"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get_conversation'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/get_conversation_request_example'
+            examples:
+              get_conversation_request_example:
+                $ref: '#/components/examples/get_conversation_request_example'
+
+  /im/conversations/convlist:
+    get:
+      security:
+        - bearerAuth: []
+      summary: "Сonversation list"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/size_1'
+        - $ref: '#/components/parameters/conv_type'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/conversation_list'
+
+  /im/conversations/member:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Add new member"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/add_new_member'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/add_new_member_request_example'
+            examples:
+              add_new_member_request_example:
+                $ref: '#/components/examples/add_new_member_request_example'
+
+    delete:
+      security:
+        - bearerAuth: []
+      summary: "Remove members."
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/remove_members'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/remove_members_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/remove_members_request_example'
+
+  /im/conversations/ban:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "New baned user"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_baned_users'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/new_baned_users_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/new_baned_users_request_example'
+
+    delete:
+      security:
+        - bearerAuth: []
+      summary: "Remove baned users"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/remove_baned_users'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/remove_baned_users_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/remove_baned_users_request_example'
+
+  /im/conversations/managers:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "New admin user"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/type'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_admin_user'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/new_admin_user_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/new_admin_user_request_example'
+
+    delete:
+      security:
+        - bearerAuth: []
+      summary: "Removal admin user"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/removal_admin_user'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/removal_admin_user_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/removal_admin_user_request_example'
+
+  /im/conversations/msg:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Send a message"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/message'
+        - $ref: '#/components/parameters/_type'
+        - $ref: '#/components/parameters/expansion'
+        - $ref: '#/components/parameters/mention_list'
+        - $ref: '#/components/parameters/mention_all'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/send_a_message'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/send_a_message_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/send_a_message_negative'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/send_a_message_request_example'
+            examples:
+              Single_chat_Request_Example:
+                $ref: '#/components/examples/send_a_message_request_example'
+
+    delete:
+      security:
+        - bearerAuth: []
+      summary: "Withdrawal of information"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/msg_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/withdrawal_of_information'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/withdrawal_of_information_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/withdrawal_of_information_negative'
+
+  /im/createPresignedURL:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Get file upload address"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/file_name'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get_file_upload_address'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/get_file_upload_address_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/get_file_upload_address_request_example'
+
+
+  /im/msg/modify:
+    put:
+      security:
+        - bearerAuth: []
+      summary: "Modify message"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/msg_id'
+        - $ref: '#/components/parameters/content'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modify_message'
+
+  /im/conversations/msglist:
+    get:
+      security:
+        - bearerAuth: []
+      summary: "Historical messages"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/size_1'
+        - $ref: '#/components/parameters/msg_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/historical_messages'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/historical_messages_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/historical_messages_negative'
+
+  /im/readback:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Message readed"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/msg_id'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message_readed'
+
+  /im/conversions/userlist:
+    get:
+      security:
+        - bearerAuth: []
+      summary: "Chat user information"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/size_2'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chat_user_information'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/chat_user_information_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/chat_user_information_negative'
+
+  /im/conversations/convid:
+    get:
+      security:
+        - bearerAuth: []
+      summary: "Does private chat exist?"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/to_unique_name'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/does_private_chat_exist'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/does_private_chat_exist_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/does_private_chat_exist_negative'
+
+  /im/chatroom:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Create a chat room"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_expansion'
+
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_a_chat_room'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_a_chat_room_request_example'
+            examples:
+              remove members_request_example:
+                $ref: '#/components/examples/create_a_chat_room_request_example'
+
+    get:
+      security:
+        - bearerAuth: []
+      summary: "Check chat rooms"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/size_1'
+
+      responses:
+        200:
+          description: Successful Return Example
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Check_chat_rooms'
+
+    delete:
+      security:
+        - bearerAuth: []
+      summary: "Delete chat room"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+
+      responses:
+        200:
+          description: Successful Return Example
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delete_chat_room'
+
+  /im/chatroom/message:
+    post:
+      security:
+        - bearerAuth: []
+      summary: "Chat room send message"
+      parameters:
+        - $ref: '#/components/parameters/unique_name'
+        - $ref: '#/components/parameters/conv_id'
+        - $ref: '#/components/parameters/message'
+        - $ref: '#/components/parameters/_type'
+        - $ref: '#/components/parameters/expansion'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chat_room_send_message'
+              examples:
+                confirmation-success:
+                  $ref: '#/components/examples/chat_room_send_message_pozitive'
+                confirmation-fail:
+                  $ref: '#/components/examples/chat_room_send_message_negative'
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/chat_room_send_message_request_example'
+            examples:
+              chat room send message request example:
+                $ref: '#/components/examples/chat_room_send_message_request_example'
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: AM-APP-ID
+  parameters:
+    aud:
+      name: aud
+      schema:
+        type: string
+      in: query
+      allowEmptyValue: true
+      description: Interface caller (user unique identification)
+    act:
+      name: act
+      schema:
+        type: string
+      in: query
+      allowEmptyValue: false
+      description: Special operation type See token for details
+    members:
+      name: members
+      schema:
+        type: array
+        items:
+          type: string
+      in: query
+      allowEmptyValue: false
+      description: User being manipulated
+
+    unique_name:
+      name: unique_name
+      schema:
+        type: string
+      allowEmptyValue: true
+      in: query
+      description: Developer Platform User Unique Identification
+
+    to_unique_name_1:
+      name: to_unique_name
+      schema:
+        type: array
+        items:
+          type: string
+      allowEmptyValue: true
+      in: query
+      description: Unionally-identified
+
+    conv_type:
+      name: conv_type
+      schema:
+        type: integer
+      allowEmptyValue: false
+      in: query
+      description: Chat type Default null Get all 1 Private chat 2 Multiplayer chat 3 Group chat
+
+    conv_expansion:
+      name: conv_expansion
+      schema:
+        type: string
+      allowEmptyValue: true
+      in: query
+      description: Conversation expansion information
+
+    conv_id:
+      name: conv_id
+      schema:
+        type: string
+      in: query
+      allowEmptyValue: true
+      description: conversation ID
+
+    is_quit:
+      name: is_quit
+      in: query
+      schema:
+        type: integer
+      allowEmptyValue: false
+      description: Whether to delete and exit Default 0 No exit 1 Exit
+
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+      allowEmptyValue: false
+      description: page count Default1
+
+    size_1:
+      name: size
+      in: query
+      schema:
+        type: integer
+      allowEmptyValue: false
+      description: single page data Default20
+
+    to_unique_name:
+      name: to_unique_name
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: true
+      description: uniquely identified by the operator
+
+    type:
+      name: type
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: true
+      description: addManager
+
+    message:
+      name: message
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: false
+      description: Chat text content
+
+    _type:
+      name: _type
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: true
+      description: message type -1 text -2 image -3 voice -4 video -5 location -6 file
+
+    expansion:
+      name: expansion
+      in: query
+      schema:
+        type: object
+      allowEmptyValue: false
+      description: user expansion information Default null
+
+    mention_list:
+      name: mention_list
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      allowEmptyValue: false
+      description:  "@User’s unique identification"
+
+    mention_all:
+      name: mention_all
+      in: query
+      schema:
+        type: integer
+      allowEmptyValue: false
+      description: "@All 1 Default 0"
+
+    file_name:
+      name: file_name
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: true
+      description: file name
+
+    msg_id:
+      name: msg_id
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: true
+      description: MessageID
+
+    content:
+      name: content
+      in: query
+      schema:
+        type: string
+      allowEmptyValue: true
+      description: modified content
+
+    size_2:
+      name: size
+      in: query
+      schema:
+        type: integer
+      allowEmptyValue: false
+
+
+
+
+  schemas:
+    get_token:
+      title: Get the token
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ2dDAwMSIsImV4cCI6MTYwMTUyODM3NCwiYXBwX2lkIjoiMTAyNDEwMjQiLCJhY3QiOiJjb252LmNyZWF0ZSIsIm1lbWJlcnMiOiJhYjE3NzA0MzExNmNkYTNkZmExOWQ3OGMwNDI0OWY2YJ9.kv-G6QqKhqlq68x2duMV0LshDavauUeHwjdeLgifGkc"
+
+    Single_chat_group_chat_API_interface:
+      title: Single chat group chat API interface
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: object
+
+    Single_chat_Request_Example:
+      title: Single chat group chat API interface request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: array
+          items:
+            type: string
+        conv_type:
+          type: integer
+        conv_expansion:
+          type: object
+
+    update_conversation:
+      title: Update conversation
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "modification successful"
+
+    update_conversation_request_example:
+      title: Update conversation request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_id:
+          type: string
+        conv_expansion:
+          type: object
+        conv_name:
+          type: string
+
+    delete_conversation:
+      title: Delite conversation
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "SUSSCSS"
+
+    delete_conversation_request_example:
+      title: Delite conversation request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    get_conversation:
+      title: Get conversation
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: object
+          example:
+            id: 35
+
+    get_conversation_request_example:
+      title: Get conversation request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    conversation_list:
+      title: Сonversation list
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: object
+          example:
+            list:
+              - id: 16
+                conv_id: 5582d4fb15bcb02866427d15f6779ce6
+                group_id: ""
+                conv_type: 2
+                conv_status: 0
+                mention_msg_id: fc1f977b17eb33c6903b9c85c2b3ecf0
+                last_msg_info:
+                  conv_id: 5582d4fb15bcb02866427d15f6779ce6
+                  group_id: null
+                  msg_id: fc1f977b17eb33c6903b9c85c2b3ecf0
+                  msg_type: 1
+                  ctime: 1568016089253
+                  msg:
+                    from_user_unique_name: vt002
+                    from_user_expansion: null
+                    message:
+                      _type: -1
+                      _text: hello,im11111
+                      _expansion:
+                        a: 123
+                    msg_type: 1
+                    time: 1568016089253
+                  mention_list: null
+                  mention_all: 1
+                mention_msg_info:
+                  - conv_id: ea76b73ac18601c0b03841c6b2a6a63b
+                    group_id: null
+                    msg_id: c8d367ef443315eab3eecbf44be3417e
+                    msg_type: 1
+                    ctime: 1570879123111
+                    msg:
+                      from_user_unique_name: vt001
+                      from_user_expansion:
+                        nickname: wag1111a
+                      is_hook: true
+                      message:
+                        _type: -1
+                        _text: cc1570879123
+                        _expansion:
+                          a: 123
+                      msg_type: 1
+                      time: 1570879123111
+                    mention_list: null
+                    mention_all: 1
+                    ip: ""
+                  - conv_id: ea76b73ac18601c0b03841c6b2a6a63b
+                    group_id: null
+                    msg_id: 57545c741ba049777492f773a4669397
+                    msg_type: 1
+                    ctime: 1570879159924
+                    msg:
+                      from_user_unique_name: vt001
+                      from_user_expansion:
+                        nickname: wag1111a
+                      is_hook: true
+                      message:
+                        _type: -1
+                        _text: cc1570879160
+                        _expansion:
+                          a: 123
+                      msg_type: 1
+                      time: 1570879159924
+                    mention_list: null
+                    mention_all: 1
+                    ip: ""
+                msg_count: 2
+                conv_expansion:
+                  conv_name: 群聊
+              - id: 22
+                conv_id: f0fdd09850d0a7c7242d118cc91f3b5b
+                group_id: 1165731
+                conv_type: 3
+                conv_status: 0
+                mention_msg_id: 397fa828b85428c27e4b7189205a10f3
+                last_msg_info:
+                  conv_id: f0fdd09850d0a7c7242d118cc91f3b5b
+                  group_id: 1165731
+                  msg_id: 397fa828b85428c27e4b7189205a10f3
+                  msg_type: 1
+                  ctime: 1567674021988
+                  msg:
+                    from_user_unique_name: vt001
+                    from_user_expansion: false
+                    message:
+                      _type: -1
+                      _text: hello,im11111
+                      _expansion:
+                        a: 123
+                    msg_type: 1
+                    time: 1567674021988
+                  mention_list: null
+                  mention_all: 1
+                mention_msg_info:
+                  conv_id: f0fdd09850d0a7c7242d118cc91f3b5b
+                  group_id: 1165731
+                  msg_id: 397fa828b85428c27e4b7189205a10f3
+                  msg_type: 1
+                  ctime: 1567674021988
+                  msg:
+                    from_user_unique_name: vt001
+                    from_user_expansion: false
+                    message:
+                      _type: -1
+                      _text: hello,im11111
+                      _expansion:
+                        a: 123
+                      msg_type: 1
+                      time: 1567674021988
+                    mention_list: null
+                    mention_all: 1
+                msg_count: 2
+                conv_expansion:
+                  conv_name: 群聊
+            page_info:
+              page: 1
+              size: 5
+              totalPage: 1
+              totalCount: 3
+
+    add_new_member:
+      title: Add new member
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "success"
+
+    add_new_member_request_example:
+      title: Add new member request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    remove_members:
+      title: Remove members
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "success"
+
+    remove_members_request_example:
+      title: Remove members request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    new_baned_users:
+      title: New banned users
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "success"
+
+    new_baned_users_request_example:
+      title: New bannes users
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    remove_baned_users:
+      title: Remove baned users
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "success"
+
+    remove_baned_users_request_example:
+      title: Remove baned users request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    new_admin_user:
+      title: New admin user
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "success"
+
+    new_admin_user_request_example:
+      title: New admin user request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: string
+        conv_id:
+          type: string
+
+    removal_admin_user:
+      title: Removal admin user
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "success"
+
+    removal_admin_user_request_example:
+      title: Removal admin user request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        to_unique_name:
+          type: string
+        conv_id:
+          type: string
+        type:
+          type: string
+
+    send_a_message:
+      title: Send a message
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: string
+
+    send_a_message_request_example:
+      title: Send a message request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_id:
+          type: string
+        message:
+          type: string
+        _type:
+          type: string
+        expansion:
+          type: object
+        menu_list:
+          type: array
+          items:
+            type: string
+
+    get_file_upload_address:
+      title: Get file upload address
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "http://example.com/upload/3d15edf0f1dde6ee123fd1f0532dedcb/1e03b8555e1ba007b62bd3831f9f4adb/5d6d278518442_test.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=6YMDii4NYCqMfThc6fntMmiG%2F20190902%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190902T143029Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Signature=73d06e4d7fc07d3d61abedde840524d0c8c115c469488e30b6244e1008fa195f"
+
+    withdrawal_of_information:
+      title: Withdrawal_of_information
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: string
+
+    get_file_upload_address_request_example:
+      title: Get file upload address request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_id:
+          type: string
+        file_name:
+          type: string
+
+    modify_message:
+      title: Modify message
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: true
+
+    historical_messages:
+      title: Historical messages
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: object
+
+    message_readed:
+      title: Message readed
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: integer
+          example: 10
+
+    chat_user_information:
+      title: Chat user information
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: object
+
+    does_private_chat_exist:
+      title: Does private chat exists
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: string
+
+    create_a_chat_room:
+      title: Create a chat room
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: "d397cd21fc3a980be25a479eef7d9a17"
+
+    create_a_chat_room_request_example:
+      title: Create a chat room request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_expansion:
+          type: object
+
+    Check_chat_rooms:
+      title: Check chat rooms
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: object
+          example:
+            list:
+              - conv_id: ffbcf34172570ed7cadcf946e319c41
+                conv_expansion:
+                  name: "This is my first group chat."
+            page_info:
+              page: 1
+              pageNum: 1
+              totalPage: 51
+              totalCount: 51
+
+    delete_chat_room:
+      title: Delete chat room
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        msg:
+          type: string
+          example: "ok"
+        data:
+          type: string
+          example: ""
+
+    chat_room_send_message:
+      title: Chat room send message
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: string
+
+    chat_room_send_message_request_example:
+      title: Chat room send message request example
+      type: object
+      properties:
+        unique_name:
+          type: string
+        conv_id:
+          type: string
+        message:
+          type: string
+        _type:
+          type: string
+        expansion:
+          type: object
+
+
+
+  examples:
+    Single_chat_Request_Example:
+      value:
+        unique_name: vt001
+        to_unique_name:
+          -vt00w
+        conv_type: 3
+        conv_expansion:
+          conv_name: group chat for vt001 and vt00w
+
+    Single_chat_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data:
+          id: 35
+          conv_id": "df053aebcd445847d5cd59b0f3afc7f5"
+          group_id": null
+          conv_expansion:
+            text: test
+          conv_user_info:
+            - unique_name: harris3
+              Expansion: null
+              role: 1
+              status: 0
+          ctime: 1570892048353
+          conv_creater_info:
+            unique_name: harris3
+            Expansion: null
+          user_num: 2
+
+    Single_chat_negative:
+      value:
+        code: 1
+        msg: user data exception
+        data: null
+
+    update_conversation_request_example:
+      value:
+        unique_name: vt001
+        conv_id: 874131cc3355f562dcbbe18035c72f77
+        conv_expansion:
+          conv_name: change1
+
+    delete_conversation_request_example:
+      value:
+        unique_name: vt001
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    get_conversation_request_example:
+      value:
+        unique_name: vt001
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    add_new_member_request_example:
+      value:
+        unique_name: vt001
+        to_unique_name: vt005
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    remove_members_request_example:
+      value:
+        unique_name: vt001
+        to_unique_name: vt005
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    new_baned_users_request_example:
+      value:
+        unique_name: vt001
+        to_unique_name: vt005
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    remove_baned_users_request_example:
+      value:
+        unique_name: vt001
+        to_unique_name: vt005
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    new_admin_user_request_example:
+      value:
+        unique_name: vt001
+        to_unique_name: vt005
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+
+    removal_admin_user_request_example:
+      value:
+        unique_name: vt001
+        to_unique_name: vt005
+        conv_id: e21870b20eb69455d3937cffe95bdf23
+        type: removeManager
+
+    send_a_message_request_example:
+      value:
+        unique_name: vt001
+        conv_id: 1e03b8555e1ba007b62bd3831f9f4adb
+        message: hello,im
+        _type: "-1"
+        expansion:
+          a: 123
+        menu_list:
+          - vt002
+
+    send_a_message_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data: "a8f59160c1378e3320bb72faf642fd8b"
+
+    send_a_message_negative:
+      value:
+        code: 1
+        msg: "Send failed"
+        data: null
+
+    get_file_upload_address_request_example:
+      value:
+        unique_name: vt001
+        conv_id: 1e03b8555e1ba007b62bd3831f9f4adb
+        file_name: test.png
+
+    withdrawal_of_information_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data: "deleted successfully"
+
+    withdrawal_of_information_negative:
+      value:
+        code: 1
+        msg: "delete failed"
+        data: null
+
+    historical_messages_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data:
+          conv_id: 1e03b8555e1ba007b62bd3831f9f4adb
+          group_id: 7120345
+          msg_id: 914c17691ad1901131fa4e1b068f8b82
+          msg_type: 1
+          ctime: 1566387556281
+          msg:
+            from_user_unique_name: vt001
+            from_user_expansion:
+              nickname: Xiaoming
+            message:
+              _type: -1
+              _text: hello,im11111
+              _expansion:
+                a: 123
+            msg_type: 1
+            time: 1566387556281
+
+    historical_messages_negative:
+      value:
+        code: 1
+        msg: "Acquisition failure"
+        data: null
+
+    chat_user_information_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data:
+          page_info:
+            totalCount: 3
+            totalPage: 1
+            PAGE: 1
+            pageNum: "10"
+          list:
+            - unique_name: vt001
+              expansion:
+                nickname: wag1111a
+              role: 1
+              status: 0
+            - unique_name: vt002
+              Expansion: null
+              role: 0
+              status: 0
+            - unique_name: vt003
+              Expansion: null
+              role: 0
+              status: 0
+
+    chat_user_information_negative:
+      value:
+        code: 1
+        msg: "user profile exception"
+        data: null
+
+    does_private_chat_exist_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data: "e1bdcbbfce846c9fc8b2cbe22ab04ca8"
+
+    does_private_chat_exist_negative:
+      value:
+        code: 1
+        msg: "user profile exception"
+        data: null
+
+    create_a_chat_room_request_example:
+      value:
+        unique_name: vt001
+        conv_expansion:
+          name: "This is my first group chat."
+
+    chat_room_send_message_request_example:
+      value:
+        unique_name: vt001
+        conv_id: 1e03b8555e1ba007b62bd3831f9f4adb
+        message: hello,im
+        _type: "-1"
+        expansion:
+          a: 123
+
+    chat_room_send_message_pozitive:
+      value:
+        code: 0
+        msg: "ok"
+        data: "a8f59160c1378e3320bb72faf642fd8b"
+
+    chat_room_send_message_negative:
+      value:
+        code: 1
+        msg: "sending failure"
+        data: null
+
+
+security:
+  - ApiKeyAuth: []
